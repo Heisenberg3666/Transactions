@@ -14,7 +14,7 @@ namespace Transactions
 
         public override string Name => "Transactions";
         public override string Author => "Heisenberg3666";
-        public override Version Version => new Version(1, 0, 0, 0);
+        public override Version Version => new Version(1, 0, 0, 1);
         public override Version RequiredExiledVersion => new Version(5, 2, 2);
 
         public override void OnEnabled()
