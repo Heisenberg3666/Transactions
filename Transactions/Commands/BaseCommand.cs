@@ -7,9 +7,9 @@ namespace Transactions.Commands
     [CommandHandler(typeof(GameConsoleCommandHandler))]
     internal class BaseCommand : ParentCommand
     {
-        public override string Command { get; }
-        public override string[] Aliases { get; }
-        public override string Description { get; }
+        public override string Command { get; } = nameof(Transactions).ToLower();
+        public override string[] Aliases { get; } = Array.Empty<string>();
+        public override string Description { get; } = "The base command for the Transactions plugin.";
 
         public BaseCommand()
         {
@@ -27,7 +27,7 @@ namespace Transactions.Commands
 
         protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
-            response = "Commands: ";
+            response = "Commands: addpoints | getpoints | givepoints | removepoints | setpoints";
             return false;
         }
     }
