@@ -32,6 +32,8 @@ namespace Transactions
         {
             UnregisterEvents();
 
+            _playerEvents = null;
+            Database.Dispose();
             Database = null;
             Instance = null;
 
