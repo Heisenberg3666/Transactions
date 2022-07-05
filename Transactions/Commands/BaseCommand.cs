@@ -18,7 +18,11 @@ namespace Transactions.Commands
 
         public override void LoadGeneratedCommands()
         {
-            throw new NotImplementedException();
+            RegisterCommand(new AddPoints());
+            RegisterCommand(new GetPoints());
+            RegisterCommand(new GivePoints());
+            RegisterCommand(new RemovePoints());
+            RegisterCommand(new SetPoints());
         }
 
         protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)
