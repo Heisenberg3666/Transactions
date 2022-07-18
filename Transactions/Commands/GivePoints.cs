@@ -12,7 +12,7 @@ namespace Transactions.Commands
         public string Command { get; } = nameof(GivePoints).ToLower();
         public string[] Aliases { get; } = new string[] { "give" };
         public string Description { get; } = "Transfer some of your points to another player.";
-        public string[] Usage { get; } = new string[] { "Id", "Points" };
+        public string[] Usage { get; } = new string[] { "Name", "Points" };
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
@@ -27,7 +27,7 @@ namespace Transactions.Commands
 
             if (arguments.Count < 2)
             {
-                response = $"Usage: {Command} 1 500";
+                response = $"Usage: {Command} Heisenberg 500";
                 return false;
             }
 
