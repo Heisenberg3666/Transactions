@@ -6,11 +6,12 @@ using Transactions.API;
 
 namespace Transactions.Commands
 {
-    internal class SetPoints : ICommand
+    internal class SetPoints : IUsageCommand
     {
         public string Command { get; } = nameof(SetPoints).ToLower();
         public string[] Aliases { get; } = new string[] { "set" };
         public string Description { get; } = "Set the amount of points that a player has.";
+        public string[] Usage { get; } = new string[] { "Id", "Points" };
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
@@ -37,7 +38,7 @@ namespace Transactions.Commands
             }
 
             TransactionsApi.SetPoints(player, int.Parse(arguments.At(1)));
-            response = $"UserId: {player.UserId}\nPoints: {arguments.At(1)}";
+            response = $"\nUserId: {player.UserId}\nPoints: {arguments.At(1)}";
             return true;
         }
     }

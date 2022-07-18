@@ -6,11 +6,12 @@ using Transactions.API;
 
 namespace Transactions.Commands
 {
-    internal class GivePoints : ICommand
+    internal class GivePoints : IUsageCommand
     {
         public string Command { get; } = nameof(GivePoints).ToLower();
         public string[] Aliases { get; } = new string[] { "give" };
         public string Description { get; } = "Transfer some of your points to another player.";
+        public string[] Usage { get; } = new string[] { "Id", "Points" };
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
