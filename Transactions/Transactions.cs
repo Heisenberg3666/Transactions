@@ -23,6 +23,7 @@ namespace Transactions
         {
             Instance = this;
             Database = new LiteDatabase(Config.DatabasePath);
+
             _playerEvents = new PlayerEvents(Config);
 
             RegisterEvents();
