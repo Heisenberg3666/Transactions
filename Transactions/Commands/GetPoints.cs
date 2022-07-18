@@ -32,6 +32,12 @@ namespace Transactions.Commands
 
             Player player = Player.Get(arguments.At(0));
 
+            if (player == null)
+            {
+                response = "You have not specified a valid player.";
+                return false;
+            }
+
             if (!TransactionsApi.PlayerExists(player))
             {
                 response = "Player does not exist in the database, they must have DNT enabled.";
