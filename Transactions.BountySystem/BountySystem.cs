@@ -1,57 +1,55 @@
-﻿using Exiled.API.Enums;
-using Exiled.API.Features;
-using LiteDB;
+﻿using Exiled.API.Features;
 using System;
-using Transactions.Events;
+using Transactions.BountySystem.Config;
+using Transactions.BountySystem.Events;
 
-namespace Transactions
+namespace Transactions.BountySystem
 {
-    public class Transactions : Plugin<Config>
+    public class BountySystem : Plugin<BaseConfig>
     {
         private PlayerEvents _playerEvents;
+        private ServerEvents _serverEvents;
 
-        public static Transactions Instance;
-        public LiteDatabase Database;
+        public static BountySystem Instance;
 
-        public override string Name => "Transactions";
+        public override string Name => "Transactions.BountySystem";
         public override string Author => "Heisenberg3666";
-        public override PluginPriority Priority => PluginPriority.High;
-        public override Version Version => new Version(1, 1, 0, 0);
+        public override Version Version => new Version(1, 0, 0, 0);
         public override Version RequiredExiledVersion => new Version(5, 2, 2);
 
         public override void OnEnabled()
         {
             Instance = this;
-            Database = new LiteDatabase(Config.DatabasePath);
-            _playerEvents = new PlayerEvents(Config);
+
+            _playerEvents = new PlayerEvents();
+            _serverEvents = new ServerEvents();
 
             RegisterEvents();
 
             base.OnEnabled();
         }
-
         public override void OnDisabled()
         {
             UnregisterEvents();
 
+            _serverEvents = null;
             _playerEvents = null;
-
-            Database.Dispose();
-            Database = null;
 
             Instance = null;
 
             base.OnDisabled();
         }
-
+        
         public void RegisterEvents()
         {
             _playerEvents.RegisterEvents();
+            _serverEvents.RegisterEvents();
         }
 
         public void UnregisterEvents()
         {
             _playerEvents.UnregisterEvents();
+            _serverEvents.UnregisterEvents();
         }
     }
 }

@@ -1,11 +1,28 @@
 ﻿using Exiled.API.Features;
+using System.Collections.Generic;
 using Transactions.API.Entities;
+using Transactions.API.Interfaces;
+using Transactions.Commands;
 
 namespace Transactions.API
 {
     public static class TransactionsApi
     {
         public static bool PlayerExists(Player player) => Transactions.Instance.Database.GetCollection<PlayerData>().Exists(x => x.UserId == player.UserId);
+
+        public static void RegisterSubcommands(IEnumerable<IUsageCommand> commands)
+        {
+            BaseCommand.Instance.Commands.AddRange(commands);
+
+            foreach (IUsageCommand command in commands)
+                BaseCommand.Instance.RegisterCommand(command);
+        }
+
+        public static string FormatPoints(int points)
+        {
+            return Transactions.Instance.Config.PointsFormat
+                .Replace("%points%", points.ToString());
+        }
 
         public static int GetPoints(Player player)
         {
