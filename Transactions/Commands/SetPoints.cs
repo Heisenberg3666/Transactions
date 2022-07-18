@@ -3,6 +3,7 @@ using Exiled.API.Features;
 using Exiled.Permissions.Extensions;
 using System;
 using Transactions.API;
+using Transactions.API.Interfaces;
 
 namespace Transactions.Commands
 {
