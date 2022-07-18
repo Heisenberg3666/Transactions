@@ -28,7 +28,7 @@ namespace Transactions.BountySystem.Commands
                 return false;
             }
 
-            if (arguments.Count < 2)
+            if (arguments.Count < 3)
             {
                 response = $"Usage: {Command} Heisenberg 500 Called me a name";
                 return false;
@@ -42,7 +42,13 @@ namespace Transactions.BountySystem.Commands
 
             Player player = Player.Get(arguments.At(0));
 
-            string reason = string.Join(" ", arguments.ToList().GetRange(2, arguments.Count - 1));
+            if (player == null)
+            {
+                response = "You have not specified a valid player.";
+                return false;
+            }
+
+            string reason = string.Join(" ", arguments.Skip(2));
 
             Bounty bounty = new Bounty()
             {

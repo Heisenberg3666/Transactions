@@ -40,6 +40,13 @@ namespace Transactions.BountySystem.Commands
             }
 
             Player player = Player.Get(arguments.At(0));
+
+            if (player == null)
+            {
+                response = "You have not specified a valid player.";
+                return false;
+            }
+
             Player commandSender = Player.Get(sender);
 
             Bounty bounty = BountySystemApi.Bounties.FirstOrDefault(
