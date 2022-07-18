@@ -45,6 +45,8 @@ namespace Transactions.API
             playerData.Points += points;
 
             Transactions.Instance.Database.GetCollection<PlayerData>().Update(playerData);
+
+            player.ShowHint($"<color=green>+{FormatPoints(points)}</color>", 10);
         }
 
         public static void RemovePoints(Player player, int points)
@@ -53,6 +55,8 @@ namespace Transactions.API
             playerData.Points -= points;
 
             Transactions.Instance.Database.GetCollection<PlayerData>().Update(playerData);
+
+            player.ShowHint($"<color=red>-{FormatPoints(points)}</color>", 10);
         }
 
         public static void AddPlayer(Player player)
