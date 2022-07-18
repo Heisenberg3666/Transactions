@@ -68,6 +68,8 @@ namespace Transactions.API
             };
 
             Transactions.Instance.Database.GetCollection<PlayerData>().Insert(playerData);
+
+            player.ShowHint($"Welcome to the server, enjoy your free points!\n<color=green>+{FormatPoints(playerData.Points)}</color>");
         }
 
         public static void RemovePlayer(Player player)
