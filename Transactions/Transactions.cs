@@ -1,5 +1,6 @@
 ﻿using Exiled.API.Enums;
 using Exiled.API.Features;
+using Exiled.CustomItems.API.Features;
 using LiteDB;
 using System;
 using Transactions.Events;
@@ -28,11 +29,15 @@ namespace Transactions
 
             RegisterEvents();
 
+            CustomItem.RegisterItems();
+
             base.OnEnabled();
         }
 
         public override void OnDisabled()
         {
+            CustomItem.UnregisterItems();
+
             UnregisterEvents();
 
             _playerEvents = null;

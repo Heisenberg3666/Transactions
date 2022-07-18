@@ -113,6 +113,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\CustomItems\Coin.cs" />
     <Compile Include="API\Entities\PlayerData.cs" />
     <Compile Include="API\TransactionsApi.cs" />
     <Compile Include="Commands\AddPoints.cs" />
