@@ -1,4 +1,5 @@
 ﻿using Exiled.API.Features;
+using MEC;
 using System.Collections.Generic;
 using Transactions.API;
 using Transactions.BountySystem.API.Entities;
@@ -31,6 +32,8 @@ namespace Transactions.BountySystem.API
             TransactionsApi.RemovePoints(issuer, newBounty.Reward);
 
             Bounties.Add(newBounty);
+
+            target.CustomInfo = "<color=red>BOUNTY</color>";
         }
 
         /// <summary>
@@ -53,6 +56,8 @@ namespace Transactions.BountySystem.API
             TransactionsApi.AddPoints(issuer, bounty.Reward);
 
             Bounties.Remove(bounty);
+
+            target.CustomInfo = "";
         }
 
         /// <summary>
