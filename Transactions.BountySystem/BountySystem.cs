@@ -1,4 +1,6 @@
 ﻿using Exiled.API.Features;
+using Exiled.Loader;
+using MEC;
 using System;
 using System.Collections.Generic;
 using Transactions.API;
@@ -14,6 +16,7 @@ namespace Transactions.BountySystem
         private PlayerEvents _playerEvents;
         private ServerEvents _serverEvents;
         private List<IUsageCommand> _commands;
+        private CoroutineHandle _commandChecker;
 
         public static BountySystem Instance;
 
@@ -37,10 +40,18 @@ namespace Transactions.BountySystem
                 new CancelBounty()
             };
 
-            TransactionsApi.RegisterSubcommands(_commands);
+            _commandChecker = Timing.CallPeriodically(60f, 5f, () => 
+            {
+                if (Transactions.Instance != null)
+                {
+                    TransactionsApi.RegisterSubcommands(_commands);
+                    _commandChecker.IsRunning = false;
+                }
+            });
 
             base.OnEnabled();
         }
+
         public override void OnDisabled()
         {
             TransactionsApi.UnregisterSubcommands(_commands);
