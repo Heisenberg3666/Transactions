@@ -1,7 +1,10 @@
-﻿using Exiled.Events.Handlers;
+﻿using Exiled.Events.EventArgs;
+using Exiled.Events.Handlers;
 using System.Collections.Generic;
 using Transactions.API;
 using Transactions.API.Interfaces;
+using Transactions.BountySystem.API;
+using Transactions.BountySystem.API.Entities;
 using Transactions.BountySystem.Commands;
 
 namespace Transactions.BountySystem.Events
@@ -11,11 +14,13 @@ namespace Transactions.BountySystem.Events
         public void RegisterEvents()
         {
             Server.WaitingForPlayers += OnWaitingForPlayers;
+            Server.EndingRound += OnRoundEnded;
         }
 
         public void UnregisterEvents()
         {
             Server.WaitingForPlayers -= OnWaitingForPlayers;
+            Server.EndingRound -= OnRoundEnded;
         }
 
         private void OnWaitingForPlayers()
@@ -25,6 +30,15 @@ namespace Transactions.BountySystem.Events
                 new CreateBounty(),
                 new CancelBounty()
             });
+        }
+
+        private void OnRoundEnded(EndingRoundEventArgs e)
+        {
+            if (BountySystemApi.Bounties.Count > 0)
+            {
+                foreach (Bounty bounty in BountySystemApi.Bounties)
+                    BountySystemApi.FailBounty(bounty);
+            }
         }
     }
 }
