@@ -1,8 +1,6 @@
 ﻿using Exiled.Events.EventArgs;
 using Exiled.Events.Handlers;
-using LiteDB;
 using Transactions.API;
-using Transactions.API.Entities;
 
 namespace Transactions.Events
 {

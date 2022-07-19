@@ -2,7 +2,6 @@
 using Exiled.API.Features;
 using Exiled.Permissions.Extensions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Transactions.API;
 using Transactions.API.Interfaces;
