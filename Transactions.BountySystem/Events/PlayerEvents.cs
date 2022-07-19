@@ -43,8 +43,8 @@ namespace Transactions.BountySystem.Events
 
         private void OnLeft(LeftEventArgs e)
         {
-            IEnumerable<Bounty> issuedBounties = BountySystemApi.Bounties.Where(x => x.IssuerId == e.Player.Id);
-            IEnumerable<Bounty> bounties = BountySystemApi.Bounties.Where(x => x.TargetId == e.Player.Id);
+            IEnumerable<Bounty> issuedBounties = BountySystemApi.Bounties.Where(x => x.IssuerId == e.Player.Id).ToList();
+            IEnumerable<Bounty> bounties = BountySystemApi.Bounties.Where(x => x.TargetId == e.Player.Id).ToList();
 
             if (bounties != null)
             {

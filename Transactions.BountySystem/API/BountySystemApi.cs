@@ -33,7 +33,7 @@ namespace Transactions.BountySystem.API
 
             Bounties.Add(newBounty);
 
-            target.CustomInfo = "<color=red>BOUNTY</color>";
+            target.CustomInfo = "<color=#C50000>BOUNTY</color>";
         }
 
         /// <summary>
