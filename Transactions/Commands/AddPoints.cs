@@ -48,7 +48,7 @@ namespace Transactions.Commands
 
             TransactionsApi.AddPoints(player, points);
 
-            response = $"Added {points} points to {player.Nickname}'s total point count.";
+            response = $"Added {TransactionsApi.FormatPoints(points)} to {player.Nickname}'s total point count.";
             return true;
         }
     }

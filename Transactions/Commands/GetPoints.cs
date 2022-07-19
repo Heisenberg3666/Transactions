@@ -44,7 +44,7 @@ namespace Transactions.Commands
             }
 
             int points = TransactionsApi.GetPoints(player);
-            response = $"\nUserId: {player.UserId}\nPoints: {points}";
+            response = $"\nUserId: {player.UserId}\nPoints: {TransactionsApi.FormatPoints(points)}";
             return true;
         }
     }

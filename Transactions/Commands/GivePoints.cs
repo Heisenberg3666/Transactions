@@ -63,9 +63,9 @@ namespace Transactions.Commands
             TransactionsApi.RemovePoints(senderPlayer, points);
             TransactionsApi.AddPoints(player, points);
 
-            player.ShowHint($"{senderPlayer.Nickname} has just given you {points} points.");
+            player.ShowHint($"{senderPlayer.Nickname} has just given you {TransactionsApi.FormatPoints(points)}.");
 
-            response = $"You have given {player.Nickname} {points} points.";
+            response = $"You have given {player.Nickname} {TransactionsApi.FormatPoints(points)}.";
             return true;
         }
     }

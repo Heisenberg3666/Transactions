@@ -48,7 +48,7 @@ namespace Transactions.Commands
 
             TransactionsApi.RemovePoints(player, points);
 
-            response = $"Removed {points} points to {player.Nickname}'s total point count.";
+            response = $"Removed {TransactionsApi.FormatPoints(points)} to {player.Nickname}'s total point count.";
             return true;
         }
     }

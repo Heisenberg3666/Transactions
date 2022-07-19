@@ -44,8 +44,10 @@ namespace Transactions.Commands
                 return false;
             }
 
-            TransactionsApi.SetPoints(player, int.Parse(arguments.At(1)));
-            response = $"\nUserId: {player.UserId}\nPoints: {arguments.At(1)}";
+            int points = int.Parse(arguments.At(1));
+
+            TransactionsApi.SetPoints(player, points);
+            response = $"\nUserId: {player.UserId}\nPoints: {TransactionsApi.FormatPoints(points)}";
             return true;
         }
     }
