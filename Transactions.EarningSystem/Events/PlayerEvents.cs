@@ -1,6 +1,7 @@
 ﻿using Exiled.Events.EventArgs;
 using Exiled.Events.Handlers;
 using Transactions.API;
+using Transactions.CustomItems;
 
 namespace Transactions.EarningSystem.Events
 {
@@ -15,21 +16,20 @@ namespace Transactions.EarningSystem.Events
 
         public void RegisterEvents()
         {
-            Player.Died += OnDied;
+            Player.Dying += OnDying;
         }
 
         public void UnregisterEvents()
         {
-            Player.Died -= OnDied;
+            Player.Dying -= OnDying;
         }
 
-        private void OnDied(DiedEventArgs e)
+        private void OnDying(DyingEventArgs e)
         {
             if (TransactionsApi.PlayerExists(e.Target))
                 TransactionsApi.RemovePoints(e.Target, _config.PointsLostOnDeath);
 
-            if (e.Killer != null && TransactionsApi.PlayerExists(e.Killer))
-                TransactionsApi.AddPoints(e.Killer, _config.PointsLostOnDeath);
+            Transactions.Instance.Config.Coin.Spawn(e.Target, _config.PointsLostOnDeath);
         }
     }
 }

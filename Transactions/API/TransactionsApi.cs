@@ -1,4 +1,5 @@
 ﻿using Exiled.API.Features;
+using Exiled.API.Features.Items;
 using System.Collections.Generic;
 using Transactions.API.Entities;
 using Transactions.API.Interfaces;
@@ -9,6 +10,11 @@ namespace Transactions.API
     public static class TransactionsApi
     {
         public static bool PlayerExists(Player player) => Transactions.Instance.Database.GetCollection<PlayerData>().Exists(x => x.UserId == player.UserId);
+
+        public static Pickup SpawnCoin(Player position, int coinValue)
+        {
+            return Transactions.Instance.Config.Coin.Spawn(position, coinValue);
+        }
 
         public static void RegisterSubcommands(IEnumerable<IUsageCommand> commands)
         {

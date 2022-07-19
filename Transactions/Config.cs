@@ -2,6 +2,7 @@
 using Exiled.API.Interfaces;
 using System.ComponentModel;
 using System.IO;
+using Transactions.CustomItems;
 
 namespace Transactions
 {
@@ -20,5 +21,7 @@ namespace Transactions
 
         [Description("This is the format that players will see their money in.")]
         public string PointsFormat { get; set; } = "£%points%";
+
+        public Coin Coin { get; set; } = new Coin();
     }
 }
