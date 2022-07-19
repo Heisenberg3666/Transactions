@@ -48,15 +48,25 @@ namespace Transactions.BountySystem.Commands
                 return false;
             }
 
+            Player issuer = Player.Get(sender);
+            int reward = int.Parse(arguments.At(1));
             string reason = string.Join(" ", arguments.Skip(2));
 
             Bounty bounty = new Bounty()
             {
-                IssuerId = Player.Get(sender).Id,
+                IssuerId = issuer.Id,
                 TargetId = player.Id,
-                Reward = int.Parse(arguments.At(1)),
+                Reward = reward,
                 Reason = reason
             };
+
+            int currentBalance = TransactionsApi.GetPoints(issuer);
+
+            if (currentBalance < reward)
+            {
+                response = "You do not have enough money to make a bounty";
+                return false;
+            }
 
             BountySystemApi.CreateBounty(bounty);
 
