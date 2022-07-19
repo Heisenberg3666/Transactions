@@ -6,7 +6,7 @@ using Transactions.API.Interfaces;
 namespace Transactions.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    [CommandHandler(typeof(GameConsoleCommandHandler))]
+    [CommandHandler(typeof(ClientCommandHandler))]
     internal class BaseCommand : ParentCommand
     {
         internal static BaseCommand Instance;
