@@ -26,7 +26,7 @@ namespace Transactions.Commands
 
             if (arguments.Count < 2)
             {
-                response = $"Usage: {Command} Heisenberg 500";
+                response = $"Usage: {Command} {string.Join(" ", Usage)}";
                 return false;
             }
 

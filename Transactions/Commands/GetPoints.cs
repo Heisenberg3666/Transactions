@@ -24,13 +24,12 @@ namespace Transactions.Commands
                 return false;
             }
 
-            if (arguments.Count > 1)
-            {
-                response = $"Usage: {Command} Heisenberg";
-                return false;
-            }
+            Player player;
 
-            Player player = Player.Get(arguments.At(0));
+            if (arguments.Count < 1)
+                player = Player.Get(sender);
+            else
+                player = Player.Get(arguments.At(0));
 
             if (player == null)
             {
