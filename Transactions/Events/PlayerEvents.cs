@@ -18,11 +18,13 @@ namespace Transactions.Events
         public void RegisterEvents()
         {
             Player.Verified += OnVerified;
+            Player.Dying += OnDying;
         }
 
         public void UnregisterEvents()
         {
             Player.Verified -= OnVerified;
+            Player.Dying -= OnDying;
         }
 
         private void OnVerified(VerifiedEventArgs e)
