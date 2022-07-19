@@ -94,6 +94,7 @@
     <Compile Include="BountySystem.cs" />
     <Compile Include="Commands\CancelBounty.cs" />
     <Compile Include="Commands\CreateBounty.cs" />
+    <Compile Include="Commands\SeeBounties.cs" />
     <Compile Include="Config\BaseConfig.cs" />
     <Compile Include="Config\MessageConfig.cs" />
     <Compile Include="Events\PlayerEvents.cs" />

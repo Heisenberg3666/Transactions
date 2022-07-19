@@ -61,9 +61,9 @@ namespace Transactions.BountySystem.Commands
 
             int currentBalance = TransactionsApi.GetPoints(issuer);
 
-            if (currentBalance < reward)
+            if (reward < 1 || currentBalance < reward)
             {
-                response = "You do not have enough money to make a bounty";
+                response = "You cannot make a bounty with that many points.";
                 return false;
             }
 

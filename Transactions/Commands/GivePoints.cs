@@ -54,9 +54,9 @@ namespace Transactions.Commands
             int points = int.Parse(arguments.At(1));
             int currentBalance = TransactionsApi.GetPoints(senderPlayer);
 
-            if (currentBalance < points)
+            if (points < 1 || currentBalance < points)
             {
-                response = "You cannot afford to give this amount of points to the player.";
+                response = "You cannot give this amount of points to the player.";
                 return false;
             }
 
