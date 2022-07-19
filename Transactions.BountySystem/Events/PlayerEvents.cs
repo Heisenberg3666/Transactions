@@ -12,14 +12,14 @@ namespace Transactions.BountySystem.Events
     {
         public void RegisterEvents()
         {
-            Player.Dying += OnDying;
-            Player.Left += OnLeft;
+            Exiled.Events.Handlers.Player.Dying += OnDying;
+            Exiled.Events.Handlers.Player.Left += OnLeft;
         }
 
         public void UnregisterEvents()
         {
-            Player.Dying -= OnDying;
-            Player.Left -= OnLeft;
+            Exiled.Events.Handlers.Player.Dying -= OnDying;
+            Exiled.Events.Handlers.Player.Left -= OnLeft;
         }
 
         private void OnDying(DyingEventArgs e)
