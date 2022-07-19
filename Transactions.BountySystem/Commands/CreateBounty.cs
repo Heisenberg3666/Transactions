@@ -29,7 +29,7 @@ namespace Transactions.BountySystem.Commands
 
             if (arguments.Count < 3)
             {
-                response = $"Usage: {Command} Heisenberg 500 Called me a name";
+                response = $"Usage: {Command} {string.Join(" ", Usage)}";
                 return false;
             }
 
