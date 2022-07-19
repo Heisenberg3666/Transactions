@@ -68,6 +68,7 @@ namespace Transactions.BountySystem.Commands
             }
 
             BountySystemApi.CreateBounty(bounty);
+            player.ShowHint($"<color=red>-{TransactionsApi.FormatPoints(reward)}</color>", 10);
 
             response = $"You have sucessfully placed a bounty on {player.Nickname}";
             return true;

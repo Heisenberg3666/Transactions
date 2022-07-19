@@ -1,7 +1,8 @@
-﻿using Exiled.Events.EventArgs;
-using Exiled.Events.Handlers;
+﻿using Exiled.API.Features;
+using Exiled.Events.EventArgs;
 using System.Collections.Generic;
 using System.Linq;
+using Transactions.API;
 using Transactions.BountySystem.API;
 using Transactions.BountySystem.API.Entities;
 
@@ -29,15 +30,24 @@ namespace Transactions.BountySystem.Events
             if (bounty != null)
             {
                 if (e.Killer != null && !e.Killer.DoNotTrack)
+                {
                     BountySystemApi.CompleteBounty(bounty, e.Killer);
+                    e.Killer.ShowHint($"<color=green>+{TransactionsApi.FormatPoints(bounty.Reward)}</color>", 10);
+                }
                 else
+                {
                     BountySystemApi.FailBounty(bounty);
+                    Player.Get(bounty.IssuerId).ShowHint($"<color=green>+{TransactionsApi.FormatPoints(bounty.Reward)}</color>", 10);
+                }
             }
 
             if (issuedBounties != null)
             {
                 foreach (Bounty issuedBounty in issuedBounties)
+                {
                     BountySystemApi.CancelBounty(bounty);
+                    Player.Get(bounty.IssuerId).ShowHint($"<color=green>+{TransactionsApi.FormatPoints(bounty.Reward)}</color>", 10);
+                }
             }
         }
 
@@ -49,13 +59,19 @@ namespace Transactions.BountySystem.Events
             if (bounties != null)
             {
                 foreach (Bounty bounty in bounties)
+                {
                     BountySystemApi.FailBounty(bounty);
+                    Player.Get(bounty.IssuerId).ShowHint($"<color=green>+{TransactionsApi.FormatPoints(bounty.Reward)}</color>", 10);
+                }
             }
 
             if (issuedBounties != null)
             {
                 foreach (Bounty issuedBounty in issuedBounties)
+                {
                     BountySystemApi.CancelBounty(issuedBounty);
+                    Player.Get(issuedBounty.IssuerId).ShowHint($"<color=green>+{TransactionsApi.FormatPoints(issuedBounty.Reward)}</color>", 10);
+                }
             }
         }
     }

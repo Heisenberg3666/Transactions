@@ -60,6 +60,7 @@ namespace Transactions.BountySystem.Commands
             }
 
             BountySystemApi.CancelBounty(bounty);
+            player.ShowHint($"<color=green>+{TransactionsApi.FormatPoints(reward)}</color>", 10);
 
             response = $"You have removed the bounty from {player.Nickname}'s head.";
             return true;
