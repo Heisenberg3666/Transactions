@@ -19,6 +19,9 @@ namespace Transactions
         [Description("This is the amount of points that a new player will start with.")]
         public int StartingPoints { get; set; } = 100;
 
+        [Description("This is the amount of points that will be dropped when a player dies.")]
+        public int PointDropped { get; set; } = 25;
+
         [Description("This is the format that players will see their money in.")]
         public string PointsFormat { get; set; } = "£%points%";
 

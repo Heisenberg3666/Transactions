@@ -41,5 +41,13 @@ namespace Transactions.Events
             if (!TransactionsApi.PlayerExists(e.Player))
                 TransactionsApi.AddPlayer(e.Player);
         }
+
+        private void OnDying(DyingEventArgs e)
+        {
+            if (TransactionsApi.PlayerExists(e.Target))
+                TransactionsApi.RemovePoints(e.Target, _config.PointDropped);
+
+            Transactions.Instance.Config.Coin.Spawn(e.Target, _config.PointDropped);
+        }
     }
 }
