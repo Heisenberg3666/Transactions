@@ -112,8 +112,6 @@ namespace Transactions.API
             playerData.Points += points;
 
             Transactions.Instance.Database.GetCollection<PlayerData>().Update(playerData);
-
-            player.ShowHint($"<color=green>+{FormatPoints(points)}</color>", 10);
         }
 
         /// <summary>
@@ -127,8 +125,6 @@ namespace Transactions.API
             playerData.Points -= points;
 
             Transactions.Instance.Database.GetCollection<PlayerData>().Update(playerData);
-
-            player.ShowHint($"<color=red>-{FormatPoints(points)}</color>", 10);
         }
 
         /// <summary>
@@ -144,8 +140,6 @@ namespace Transactions.API
             };
 
             Transactions.Instance.Database.GetCollection<PlayerData>().Insert(playerData);
-
-            player.ShowHint($"Welcome to the server, enjoy your free points!\n<color=green>+{FormatPoints(playerData.Points)}</color>");
         }
 
         /// <summary>
