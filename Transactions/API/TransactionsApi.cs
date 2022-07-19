@@ -47,6 +47,25 @@ namespace Transactions.API
         }
 
         /// <summary>
+        /// Unegister a command from the <see cref="BaseCommand"/>.
+        /// </summary>
+        /// <param name="command"></param>
+        public static void UnregisterSubcommand(IUsageCommand command)
+        {
+            BaseCommand._instance.UnregisterCommand(command);
+        }
+
+        /// <summary>
+        /// Unegister commands from the <see cref="BaseCommand"/>.
+        /// </summary>
+        /// <param name="commands"></param>
+        public static void UnregisterSubcommands(IEnumerable<IUsageCommand> commands)
+        {
+            foreach (IUsageCommand command in commands)
+                UnregisterSubcommand(command);
+        }
+
+        /// <summary>
         /// Formats the integer input into a string customised in the <see cref="Config"/>.
         /// </summary>
         /// <param name="points"></param>
