@@ -16,12 +16,15 @@ namespace Transactions.API
             return Transactions.Instance.Config.Coin.Spawn(position, coinValue);
         }
 
+        public static void RegisterSubcommand(IUsageCommand command)
+        {
+            BaseCommand._instance.RegisterCommand(command);
+        }
+
         public static void RegisterSubcommands(IEnumerable<IUsageCommand> commands)
         {
-            BaseCommand.Instance.Commands.AddRange(commands);
-
             foreach (IUsageCommand command in commands)
-                BaseCommand.Instance.RegisterCommand(command);
+                RegisterSubcommand(command);
         }
 
         public static string FormatPoints(int points)

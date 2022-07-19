@@ -2,7 +2,9 @@
 using Exiled.API.Features;
 using Exiled.CustomItems.API.Features;
 using LiteDB;
+using RemoteAdmin;
 using System;
+using Transactions.Commands;
 using Transactions.Events;
 
 namespace Transactions
@@ -13,6 +15,7 @@ namespace Transactions
 
         public static Transactions Instance;
         public LiteDatabase Database;
+        public BaseCommand ParentCommand;
 
         public override string Name => "Transactions";
         public override string Author => "Heisenberg3666";
@@ -48,6 +51,22 @@ namespace Transactions
             Instance = null;
 
             base.OnDisabled();
+        }
+
+        public override void OnRegisteringCommands()
+        {
+            ParentCommand = new BaseCommand();
+
+            CommandProcessor.RemoteAdminCommandHandler.RegisterCommand(ParentCommand);
+            QueryProcessor.DotCommandHandler.RegisterCommand(ParentCommand);
+        }
+
+        public override void OnUnregisteringCommands()
+        {
+            CommandProcessor.RemoteAdminCommandHandler.UnregisterCommand(ParentCommand);
+            QueryProcessor.DotCommandHandler.UnregisterCommand(ParentCommand);
+
+            ParentCommand = null;
         }
 
         public void RegisterEvents()

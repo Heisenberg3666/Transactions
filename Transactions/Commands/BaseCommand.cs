@@ -5,14 +5,9 @@ using Transactions.API.Interfaces;
 
 namespace Transactions.Commands
 {
-    [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    [CommandHandler(typeof(ClientCommandHandler))]
-    internal class BaseCommand : ParentCommand
+    public class BaseCommand : ParentCommand
     {
-        internal static BaseCommand Instance;
-        private static bool _alreadyCalled;
-
-        internal List<IUsageCommand> Commands;
+        internal static BaseCommand _instance;
 
         public override string Command => nameof(Transactions).ToLower();
         public override string[] Aliases => new string[] { "trans" };
@@ -20,37 +15,25 @@ namespace Transactions.Commands
 
         public BaseCommand()
         {
-            // Class kept getting initialized (stops other plugins from registering subcommands).
-            if (_alreadyCalled)
-                return;
-
-            _alreadyCalled = true;
-
-            Instance = this;
-
-            Commands = new List<IUsageCommand>()
-            {
-                new AddPoints(),
-                new RemovePoints(),
-                new GivePoints(),
-                new SetPoints(),
-                new GetPoints()
-            };
+            _instance = this;
 
             LoadGeneratedCommands();
         }
 
         public override void LoadGeneratedCommands()
         {
-            foreach (IUsageCommand command in Commands)
-                RegisterCommand(command);
+            RegisterCommand(new AddPoints());
+            RegisterCommand(new RemovePoints());
+            RegisterCommand(new GivePoints());
+            RegisterCommand(new SetPoints());
+            RegisterCommand(new GetPoints());
         }
 
         protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
             response = "<color=red>Failed!</color> Available Subcommands:<color=yellow>";
 
-            foreach (IUsageCommand command in Commands)
+            foreach (IUsageCommand command in AllCommands)
                 response += $"\n{command.Command} {string.Join(" ", command.Usage)} | {command.Description} (Aliases: {string.Join(" ", command.Aliases)})";
 
             response += "</color>";
