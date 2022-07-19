@@ -12,11 +12,13 @@ namespace Transactions.BountySystem.Events
         public void RegisterEvents()
         {
             Player.Dying += OnDying;
+            Player.Left += OnLeft;
         }
 
         public void UnregisterEvents()
         {
             Player.Dying -= OnDying;
+            Player.Left -= OnLeft;
         }
 
         private void OnDying(DyingEventArgs e)
@@ -36,6 +38,24 @@ namespace Transactions.BountySystem.Events
             {
                 foreach (Bounty issuedBounty in issuedBounties)
                     BountySystemApi.CancelBounty(bounty);
+            }
+        }
+
+        private void OnLeft(LeftEventArgs e)
+        {
+            IEnumerable<Bounty> issuedBounties = BountySystemApi.Bounties.Where(x => x.IssuerId == e.Player.Id);
+            IEnumerable<Bounty> bounties = BountySystemApi.Bounties.Where(x => x.TargetId == e.Player.Id);
+
+            if (bounties != null)
+            {
+                foreach (Bounty bounty in bounties)
+                    BountySystemApi.FailBounty(bounty);
+            }
+
+            if (issuedBounties != null)
+            {
+                foreach (Bounty issuedBounty in issuedBounties)
+                    BountySystemApi.CancelBounty(issuedBounty);
             }
         }
     }
