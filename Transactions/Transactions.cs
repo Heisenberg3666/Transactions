@@ -16,10 +16,10 @@ namespace Transactions
         public LiteDatabase Database;
         public BaseCommand ParentCommand;
 
-        public override string Name => "Transactions";
-        public override string Author => "Heisenberg3666";
-        public override Version Version => new Version(2, 0, 0, 0);
-        public override Version RequiredExiledVersion => new Version(5, 2, 2);
+        public override string Name { get; } = "Transactions";
+        public override string Author { get; } = "Heisenberg3666";
+        public override Version Version { get; } = new Version(2, 0, 1, 0);
+        public override Version RequiredExiledVersion { get; } = new Version(5, 2, 2);
 
         public override void OnEnabled()
         {

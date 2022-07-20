@@ -9,9 +9,9 @@ namespace Transactions.Commands
     {
         internal static BaseCommand _instance;
 
-        public override string Command => nameof(Transactions).ToLower();
-        public override string[] Aliases => new string[] { "trans" };
-        public override string Description => "The base command for the Transactions plugin.";
+        public override string Command { get; } = nameof(Transactions).ToLower();
+        public override string[] Aliases { get; } = new string[] { "trans" };
+        public override string Description { get; } = "The base command for the Transactions plugin.";
 
         public BaseCommand()
         {
