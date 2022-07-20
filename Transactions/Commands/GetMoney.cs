@@ -7,12 +7,12 @@ using Transactions.API.Interfaces;
 
 namespace Transactions.Commands
 {
-    internal class AddPoints : IUsageCommand
+    internal class GetMoney : IUsageCommand
     {
-        public string Command { get; } = nameof(AddPoints).ToLower();
-        public string[] Aliases { get; } = new string[] { "add" };
-        public string Description { get; } = "Add points to a player.";
-        public string[] Usage { get; } = new string[] { "Name", "Points" };
+        public string Command { get; } = nameof(GetMoney).ToLower();
+        public string[] Aliases { get; } = new string[] { "get" };
+        public string Description { get; } = "Get the money that a player has.";
+        public string[] Usage { get; } = new string[] { "Name" };
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
@@ -24,13 +24,12 @@ namespace Transactions.Commands
                 return false;
             }
 
-            if (arguments.Count < 2)
-            {
-                response = $"Usage: {Command} {string.Join(" ", Usage)}";
-                return false;
-            }
+            Player player;
 
-            Player player = Player.Get(arguments.At(0));
+            if (arguments.Count < 1)
+                player = Player.Get(sender);
+            else
+                player = Player.Get(arguments.At(0));
 
             if (player == null)
             {
@@ -38,17 +37,14 @@ namespace Transactions.Commands
                 return false;
             }
 
-            int points = int.Parse(arguments.At(1));
-
             if (!TransactionsApi.PlayerExists(player))
             {
                 response = "Player does not exist in the database, they must have DNT enabled.";
                 return false;
             }
 
-            TransactionsApi.AddPoints(player, points);
-
-            response = $"Added {TransactionsApi.FormatPoints(points)} to {player.Nickname}'s total point count.";
+            int money = TransactionsApi.GetMoney(player);
+            response = TransactionsApi.FormatMoney(money);
             return true;
         }
     }

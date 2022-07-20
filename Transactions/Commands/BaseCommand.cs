@@ -22,11 +22,11 @@ namespace Transactions.Commands
 
         public override void LoadGeneratedCommands()
         {
-            RegisterCommand(new AddPoints());
-            RegisterCommand(new RemovePoints());
-            RegisterCommand(new GivePoints());
-            RegisterCommand(new SetPoints());
-            RegisterCommand(new GetPoints());
+            RegisterCommand(new AddMoney());
+            RegisterCommand(new RemoveMoney());
+            RegisterCommand(new GiveMoney());
+            RegisterCommand(new SetMoney());
+            RegisterCommand(new GetMoney());
         }
 
         protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)

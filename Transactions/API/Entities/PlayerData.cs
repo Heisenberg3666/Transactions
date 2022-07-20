@@ -7,6 +7,6 @@ namespace Transactions.API.Entities
         [BsonId]
         public string UserId { get; set; }
 
-        public int Points { get; set; }
+        public int Money { get; set; }
     }
 }

@@ -17,14 +17,14 @@ namespace Transactions.API
         public static bool PlayerExists(Player player) => Transactions.Instance.Database.GetCollection<PlayerData>().Exists(x => x.UserId == player.UserId);
 
         /// <summary>
-        /// Spawns a coin that gives player points when picked up.
+        /// Spawns a coin that gives player money when picked up.
         /// </summary>
         /// <param name="position"></param>
-        /// <param name="coinValue"></param>
+        /// <param name="money"></param>
         /// <returns></returns>
-        public static Pickup SpawnCoin(Player position, int coinValue)
+        public static Pickup SpawnCoin(Player position, int money)
         {
-            return Transactions.Instance.Config.Coin.Spawn(position, coinValue);
+            return Transactions.Instance.Config.Coin.Spawn(position, money);
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace Transactions.API
         }
 
         /// <summary>
-        /// Unegister a command from the <see cref="BaseCommand"/>.
+        /// Unregister a command from the <see cref="BaseCommand"/>.
         /// </summary>
         /// <param name="command"></param>
         public static void UnregisterSubcommand(IUsageCommand command)
@@ -56,7 +56,7 @@ namespace Transactions.API
         }
 
         /// <summary>
-        /// Unegister commands from the <see cref="BaseCommand"/>.
+        /// Unregister commands from the <see cref="BaseCommand"/>.
         /// </summary>
         /// <param name="commands"></param>
         public static void UnregisterSubcommands(IEnumerable<IUsageCommand> commands)
@@ -68,61 +68,61 @@ namespace Transactions.API
         /// <summary>
         /// Formats the integer input into a string customised in the <see cref="Config"/>.
         /// </summary>
-        /// <param name="points"></param>
+        /// <param name="money"></param>
         /// <returns><see cref="string"/></returns>
-        public static string FormatPoints(int points)
+        public static string FormatMoney(int money)
         {
-            return Transactions.Instance.Config.PointsFormat
-                .Replace("%points%", points.ToString());
+            return Transactions.Instance.Config.MoneyFormat
+                .Replace("%money%", money.ToString());
         }
 
         /// <summary>
-        /// Gets the amount of points that a player has.
+        /// Gets the amount of money that a player has.
         /// </summary>
         /// <param name="player"></param>
         /// <returns><see cref="int"/></returns>
-        public static int GetPoints(Player player)
+        public static int GetMoney(Player player)
         {
             PlayerData playerData = Transactions.Instance.Database.GetCollection<PlayerData>().FindById(player.UserId);
 
-            return playerData.Points;
+            return playerData.Money;
         }
 
         /// <summary>
-        /// Sets the amount of points that a player has.
+        /// Sets the amount of money that a player has.
         /// </summary>
         /// <param name="player"></param>
-        /// <param name="points"></param>
-        public static void SetPoints(Player player, int points)
+        /// <param name="money"></param>
+        public static void SetMoney(Player player, int money)
         {
             PlayerData playerData = Transactions.Instance.Database.GetCollection<PlayerData>().FindById(player.UserId);
-            playerData.Points = points;
+            playerData.Money = money;
 
             Transactions.Instance.Database.GetCollection<PlayerData>().Update(playerData);
         }
 
         /// <summary>
-        /// Adds an amount of points to a player.
+        /// Adds an amount of money to a player.
         /// </summary>
         /// <param name="player"></param>
-        /// <param name="points"></param>
-        public static void AddPoints(Player player, int points)
+        /// <param name="money"></param>
+        public static void AddMoney(Player player, int money)
         {
             PlayerData playerData = Transactions.Instance.Database.GetCollection<PlayerData>().FindById(player.UserId);
-            playerData.Points += points;
+            playerData.Money += money;
 
             Transactions.Instance.Database.GetCollection<PlayerData>().Update(playerData);
         }
 
         /// <summary>
-        /// Removes points from a player.
+        /// Removes money from a player.
         /// </summary>
         /// <param name="player"></param>
-        /// <param name="points"></param>
-        public static void RemovePoints(Player player, int points)
+        /// <param name="money"></param>
+        public static void RemoveMoney(Player player, int money)
         {
             PlayerData playerData = Transactions.Instance.Database.GetCollection<PlayerData>().FindById(player.UserId);
-            playerData.Points -= points;
+            playerData.Money -= money;
 
             Transactions.Instance.Database.GetCollection<PlayerData>().Update(playerData);
         }
@@ -136,7 +136,7 @@ namespace Transactions.API
             PlayerData playerData = new PlayerData()
             {
                 UserId = player.UserId,
-                Points = Transactions.Instance.Config.StartingPoints
+                Money = Transactions.Instance.Config.StartingMoney
             };
 
             Transactions.Instance.Database.GetCollection<PlayerData>().Insert(playerData);

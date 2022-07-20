@@ -45,9 +45,9 @@ namespace Transactions.Events
         private void OnDying(DyingEventArgs e)
         {
             if (TransactionsApi.PlayerExists(e.Target))
-                TransactionsApi.RemovePoints(e.Target, _config.PointDropped);
+                TransactionsApi.RemoveMoney(e.Target, _config.MoneyDropped);
 
-            Transactions.Instance.Config.Coin.Spawn(e.Target, _config.PointDropped);
+            Transactions.Instance.Config.Coin.Spawn(e.Target, _config.MoneyDropped);
         }
     }
 }

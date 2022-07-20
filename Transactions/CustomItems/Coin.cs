@@ -21,12 +21,12 @@ namespace Transactions.CustomItems
         public override float Weight { get; set; } = .75f;
         public override SpawnProperties SpawnProperties { get; set; } = new SpawnProperties();
 
-        public void ChangeCoinValue(Pickup pickup, int newCoinValue) => _values[pickup.GameObject] = newCoinValue;
+        public void ChangeCoinWorth(Pickup pickup, int coinWorth) => _values[pickup.GameObject] = coinWorth;
 
-        public Pickup Spawn(Player player, int coinValue, Player previousOwner = null)
+        public Pickup Spawn(Player player, int coinWorth, Player previousOwner = null)
         {
             Pickup item = Spawn(player, previousOwner);
-            _values.Add(item.GameObject, coinValue);
+            _values.Add(item.GameObject, coinWorth);
 
             return item;
         }
@@ -36,18 +36,18 @@ namespace Transactions.CustomItems
             if (!Check(e.Pickup))
                 return;
 
-            int coinValue = _values[e.Pickup.GameObject];
+            int coinWorth = _values[e.Pickup.GameObject];
 
             e.IsAllowed = false;
 
             if (TransactionsApi.PlayerExists(e.Player))
             {
-                TransactionsApi.AddPoints(e.Player, coinValue);
+                TransactionsApi.AddMoney(e.Player, coinWorth);
                 e.Pickup.Destroy();
             }
             else
             {
-                e.Player.ShowHint("You cannot pickup these points (custom item), disable DNT and try again.");
+                e.Player.ShowHint("You cannot pickup this coin (custom item), disable DNT and try again.");
             }
 
             base.OnPickingUp(e);

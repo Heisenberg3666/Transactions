@@ -16,14 +16,14 @@ namespace Transactions
         [Description("The message that will be used to prompt players with DNT enabled to disable it. Leave empty to disable.")]
         public string DNTPlayerPrompt { get; set; } = "You have DNT enabled! Disable DNT to use the Transactions plugin.";
 
-        [Description("This is the amount of points that a new player will start with.")]
-        public int StartingPoints { get; set; } = 100;
+        [Description("This is the amount of money that a new player will start with.")]
+        public int StartingMoney { get; set; } = 100;
 
-        [Description("This is the amount of points that will be dropped when a player dies.")]
-        public int PointDropped { get; set; } = 25;
+        [Description("This is the amount of money that will be dropped when a player dies.")]
+        public int MoneyDropped { get; set; } = 25;
 
         [Description("This is the format that players will see their money in.")]
-        public string PointsFormat { get; set; } = "£%points%";
+        public string MoneyFormat { get; set; } = "£%money%";
 
         public Coin Coin { get; set; } = new Coin();
     }

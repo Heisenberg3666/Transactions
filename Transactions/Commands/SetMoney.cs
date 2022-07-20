@@ -7,12 +7,12 @@ using Transactions.API.Interfaces;
 
 namespace Transactions.Commands
 {
-    internal class RemovePoints : IUsageCommand
+    internal class SetMoney : IUsageCommand
     {
-        public string Command { get; } = nameof(RemovePoints).ToLower();
-        public string[] Aliases { get; } = new string[] { "remove" };
-        public string Description { get; } = "Remove points from a player.";
-        public string[] Usage { get; } = new string[] { "Name", "Points" };
+        public string Command { get; } = nameof(SetMoney).ToLower();
+        public string[] Aliases { get; } = new string[] { "set" };
+        public string Description { get; } = "Set the amount of money that a player has.";
+        public string[] Usage { get; } = new string[] { "Name", "Money" };
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
@@ -38,17 +38,16 @@ namespace Transactions.Commands
                 return false;
             }
 
-            int points = int.Parse(arguments.At(1));
-
             if (!TransactionsApi.PlayerExists(player))
             {
                 response = "Player does not exist in the database, they must have DNT enabled.";
                 return false;
             }
 
-            TransactionsApi.RemovePoints(player, points);
+            int money = int.Parse(arguments.At(1));
 
-            response = $"Removed {TransactionsApi.FormatPoints(points)} to {player.Nickname}'s total point count.";
+            TransactionsApi.SetMoney(player, money);
+            response = $"Set {player.UserId}'s balance to {TransactionsApi.FormatMoney(money)}";
             return true;
         }
     }

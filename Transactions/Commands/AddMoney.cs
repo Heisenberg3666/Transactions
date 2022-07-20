@@ -7,12 +7,12 @@ using Transactions.API.Interfaces;
 
 namespace Transactions.Commands
 {
-    internal class GetPoints : IUsageCommand
+    internal class AddMoney : IUsageCommand
     {
-        public string Command { get; } = nameof(GetPoints).ToLower();
-        public string[] Aliases { get; } = new string[] { "get" };
-        public string Description { get; } = "Get the points that a player has.";
-        public string[] Usage { get; } = new string[] { "Name" };
+        public string Command { get; } = nameof(AddMoney).ToLower();
+        public string[] Aliases { get; } = new string[] { "add" };
+        public string Description { get; } = "Add money to a player.";
+        public string[] Usage { get; } = new string[] { "Name", "Money" };
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
@@ -24,12 +24,13 @@ namespace Transactions.Commands
                 return false;
             }
 
-            Player player;
+            if (arguments.Count < 2)
+            {
+                response = $"Usage: {Command} {string.Join(" ", Usage)}";
+                return false;
+            }
 
-            if (arguments.Count < 1)
-                player = Player.Get(sender);
-            else
-                player = Player.Get(arguments.At(0));
+            Player player = Player.Get(arguments.At(0));
 
             if (player == null)
             {
@@ -37,14 +38,17 @@ namespace Transactions.Commands
                 return false;
             }
 
+            int money = int.Parse(arguments.At(1));
+
             if (!TransactionsApi.PlayerExists(player))
             {
                 response = "Player does not exist in the database, they must have DNT enabled.";
                 return false;
             }
 
-            int points = TransactionsApi.GetPoints(player);
-            response = $"\nUserId: {player.UserId}\nPoints: {TransactionsApi.FormatPoints(points)}";
+            TransactionsApi.AddMoney(player, money);
+
+            response = $"Added {TransactionsApi.FormatMoney(money)} to {player.Nickname}'s balance.";
             return true;
         }
     }

@@ -7,12 +7,12 @@ using Transactions.API.Interfaces;
 
 namespace Transactions.Commands
 {
-    internal class GivePoints : IUsageCommand
+    internal class GiveMoney : IUsageCommand
     {
-        public string Command { get; } = nameof(GivePoints).ToLower();
+        public string Command { get; } = nameof(GiveMoney).ToLower();
         public string[] Aliases { get; } = new string[] { "give" };
-        public string Description { get; } = "Transfer some of your points to another player.";
-        public string[] Usage { get; } = new string[] { "Name", "Points" };
+        public string Description { get; } = "Transfer some of your money to another player.";
+        public string[] Usage { get; } = new string[] { "Name", "Money" };
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
@@ -45,27 +45,27 @@ namespace Transactions.Commands
                 return false;
             }
 
-            if (TransactionsApi.GetPoints(senderPlayer) < int.Parse(arguments.At(1)))
+            if (TransactionsApi.GetMoney(senderPlayer) < int.Parse(arguments.At(1)))
             {
-                response = "You do not have sufficient points!";
+                response = "You do not have sufficient money!";
                 return false;
             }
 
-            int points = int.Parse(arguments.At(1));
-            int currentBalance = TransactionsApi.GetPoints(senderPlayer);
+            int money = int.Parse(arguments.At(1));
+            int currentBalance = TransactionsApi.GetMoney(senderPlayer);
 
-            if (points < 1 || currentBalance < points)
+            if (money < 1 || currentBalance < money)
             {
-                response = "You cannot give this amount of points to the player.";
+                response = "You cannot give this amount of money to the player.";
                 return false;
             }
 
-            TransactionsApi.RemovePoints(senderPlayer, points);
-            TransactionsApi.AddPoints(player, points);
+            TransactionsApi.RemoveMoney(senderPlayer, money);
+            TransactionsApi.AddMoney(player, money);
 
-            player.ShowHint($"{senderPlayer.Nickname} has just given you {TransactionsApi.FormatPoints(points)}.");
+            player.ShowHint($"{senderPlayer.Nickname} has just given you {TransactionsApi.FormatMoney(money)}.");
 
-            response = $"You have given {player.Nickname} {TransactionsApi.FormatPoints(points)}.";
+            response = $"You have given {player.Nickname} {TransactionsApi.FormatMoney(money)}.";
             return true;
         }
     }
