@@ -12,7 +12,7 @@ Transactions is an SCP: SL plugin using the Exiled framework. The plugin is supp
 ## Installation
 
 Download Transactions.dll from the latest release and place inside of the Plugins folder.
-You will also need to download LiteDB.dll and (Heisenberg3666/ConsentManager)[https://github.com/Heisenberg3666/ConsentManager] aswell so that the plugin works.
+You will also need to download LiteDB.dll and [Heisenberg3666/ConsentManager](https://github.com/Heisenberg3666/ConsentManager) aswell so that the plugin works.
 
 ## Support
 
