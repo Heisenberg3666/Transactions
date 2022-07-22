@@ -1,16 +1,23 @@
-﻿using Exiled.Events.EventArgs;
+﻿using ConsentManager.API;
+using Exiled.Events.EventArgs;
 using Exiled.Events.Handlers;
+using System;
 using Transactions.API;
+using Transactions.Config;
 
 namespace Transactions.Events
 {
     internal class PlayerEvents
     {
-        private Config _config;
+        private BaseConfig _config;
+        private Translation _translation;
+        private Guid _apiKey;
 
-        public PlayerEvents(Config config)
+        public PlayerEvents(BaseConfig config, Translation translation, Guid apiKey)
         {
             _config = config;
+            _translation = translation;
+            _apiKey = apiKey;
         }
 
         public void RegisterEvents()
@@ -27,19 +34,18 @@ namespace Transactions.Events
 
         private void OnVerified(VerifiedEventArgs e)
         {
-            if (e.Player.DoNotTrack)
+            if (!ConsentManagerApi.HasPlayerGivenConsent(e.Player, _apiKey))
             {
-                if (!string.IsNullOrEmpty(_config.DNTPlayerPrompt))
-                    e.Player.OpenReportWindow(_config.DNTPlayerPrompt);
+                if (!string.IsNullOrEmpty(_translation.DNTPlayerPrompt))
+                    e.Player.OpenReportWindow(_translation.DNTPlayerPrompt);
 
                 if (TransactionsApi.PlayerExists(e.Player))
                     TransactionsApi.RemovePlayer(e.Player);
-
-                return;
             }
-
-            if (!TransactionsApi.PlayerExists(e.Player))
+            else if (!TransactionsApi.PlayerExists(e.Player))
+            {
                 TransactionsApi.AddPlayer(e.Player);
+            }
         }
 
         private void OnDying(DyingEventArgs e)

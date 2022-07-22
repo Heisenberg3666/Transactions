@@ -1,9 +1,9 @@
 ﻿using Exiled.API.Features;
 using Exiled.API.Features.Items;
-using System.Collections.Generic;
 using Transactions.API.Entities;
 using Transactions.API.Interfaces;
 using Transactions.Commands;
+using Transactions.Config;
 
 namespace Transactions.API
 {
@@ -37,16 +37,6 @@ namespace Transactions.API
         }
 
         /// <summary>
-        /// Register commands to the <see cref="BaseCommand"/>.
-        /// </summary>
-        /// <param name="commands"></param>
-        public static void RegisterSubcommands(IEnumerable<IUsageCommand> commands)
-        {
-            foreach (IUsageCommand command in commands)
-                RegisterSubcommand(command);
-        }
-
-        /// <summary>
         /// Unregister a command from the <see cref="BaseCommand"/>.
         /// </summary>
         /// <param name="command"></param>
@@ -56,23 +46,13 @@ namespace Transactions.API
         }
 
         /// <summary>
-        /// Unregister commands from the <see cref="BaseCommand"/>.
-        /// </summary>
-        /// <param name="commands"></param>
-        public static void UnregisterSubcommands(IEnumerable<IUsageCommand> commands)
-        {
-            foreach (IUsageCommand command in commands)
-                UnregisterSubcommand(command);
-        }
-
-        /// <summary>
-        /// Formats the integer input into a string customised in the <see cref="Config"/>.
+        /// Formats the integer input into a string customised in the <see cref="BaseConfig"/>.
         /// </summary>
         /// <param name="money"></param>
         /// <returns><see cref="string"/></returns>
         public static string FormatMoney(int money)
         {
-            return Transactions.Instance.Config.MoneyFormat
+            return Transactions.Instance.Translation.MoneyFormat
                 .Replace("%money%", money.ToString());
         }
 

@@ -61,6 +61,9 @@
     <Reference Include="CommandSystem.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EXILED.5.2.2\lib\net472\CommandSystem.Core.dll</HintPath>
     </Reference>
+    <Reference Include="ConsentManager">
+      <HintPath>..\..\..\..\Downloads\ConsentManager.dll</HintPath>
+    </Reference>
     <Reference Include="Exiled.API, Version=5.2.2.0, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>..\packages\EXILED.5.2.2\lib\net472\Exiled.API.dll</HintPath>
     </Reference>
@@ -114,6 +117,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\Translation.cs" />
     <Compile Include="CustomItems\Coin.cs" />
     <Compile Include="API\Entities\PlayerData.cs" />
     <Compile Include="API\TransactionsApi.cs" />
@@ -124,7 +128,7 @@
     <Compile Include="API\Interfaces\IUsageCommand.cs" />
     <Compile Include="Commands\RemoveMoney.cs" />
     <Compile Include="Commands\SetMoney.cs" />
-    <Compile Include="Config.cs" />
+    <Compile Include="Config\BaseConfig.cs" />
     <Compile Include="Events\PlayerEvents.cs" />
     <Compile Include="Transactions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
